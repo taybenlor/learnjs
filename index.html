@@ -1,0 +1,642 @@
+<!doctype html>
+<!--
+$$$$$$$$\                                       $$\                       $$\   $$\                               
+\____$$  |                                      $$ |                      $$ |  $$ |                              
+    $$  / $$$$$$\   $$$$$$\   $$$$$$\         $$$$$$\    $$$$$$\          $$ |  $$ | $$$$$$\   $$$$$$\   $$$$$$\  
+   $$  / $$  __$$\ $$  __$$\ $$  __$$\ $$$$$$\\_$$  _|  $$  __$$\ $$$$$$\ $$$$$$$$ |$$  __$$\ $$  __$$\ $$  __$$\ 
+  $$  /  $$$$$$$$ |$$ |  \__|$$ /  $$ |\______| $$ |    $$ /  $$ |\______|$$  __$$ |$$$$$$$$ |$$ |  \__|$$ /  $$ |
+ $$  /   $$   ____|$$ |      $$ |  $$ |         $$ |$$\ $$ |  $$ |        $$ |  $$ |$$   ____|$$ |      $$ |  $$ |
+$$$$$$$$\\$$$$$$$\ $$ |      \$$$$$$  |         \$$$$  |\$$$$$$  |        $$ |  $$ |\$$$$$$$\ $$ |      \$$$$$$  |
+\________|\_______|\__|       \______/           \____/  \______/         \__|  \__| \_______|\__|       \______/
+-->
+<html lang="en" class="no-js">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <title>JS: From Zero to Hero</title>
+  <meta name="description" content="Javascript: From Zero to Hero">
+  <meta name="author" content="Ben Taylor">
+
+  <!-- Place favicon.ico and apple-touch-icon.png in the root of your domain and delete these references -->
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  <!-- CSS : implied media="all" -->
+  <link rel="stylesheet" href="css/style.css?v=1">
+  <link  href="http://fonts.googleapis.com/css?family=Tangerine:regular,bold" rel="stylesheet" type="text/css">
+ 
+  <!-- All JavaScript at the bottom, except for Modernizr which enables HTML5 elements & feature detects -->
+  <script src="js/modernizr-1.5.min.js"></script>
+  <script src="js/codemirror.js"></script>
+  <script>
+    CodeMirrorConfig = {
+      parserfile: ["tokenizejavascript.js", "parsejavascript.js"],
+      stylesheet: "css/jscolors.css",
+      path: "js/",
+      basefiles: ["util.js", "stringstream.js", "select.js", "undo.js", "editor.js", "tokenize.js"],
+      lineNumbers: true,
+      reindentOnLoad: true,
+      firstLineNumber: 1,
+      enterMode: "keep",
+      tabMode: "indent",
+      textWrapping: false,
+      
+      iframeClass: null,
+      passDelay: 200,
+      passTime: 50,
+      lineNumberDelay: 200,
+      lineNumberTime: 50,
+      continuousScanning: false,
+      saveFunction: null,
+      onChange: null,
+      undoDepth: 50,
+      undoDelay: 800,
+      disableSpellcheck: true,
+      readOnly: false,
+      minHeight: 100,
+      autoMatchParens: false,
+      parserConfig: null,
+      electricChars: true,
+      activeTokens: null,
+      cursorActivity: null,
+      indentUnit: 2,
+      domain: null
+    }
+  </script>
+
+</head>
+<!--[if lt IE 7 ]> <body class="ie6"> <![endif]-->
+<!--[if IE 7 ]>    <body class="ie7"> <![endif]-->
+<!--[if IE 8 ]>    <body class="ie8"> <![endif]-->
+<!--[if IE 9 ]>    <body class="ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <body> <!--<![endif]-->
+
+  <div id="container">
+    <header>
+      <h1><!-- Truly, I am sorry for this. If it wasn't so stunning I wouldn't be doing it -->
+/*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$$$$$$$\&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$\&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$\&nbsp;&nbsp;&nbsp;$$\&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\____$$&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$&nbsp;|&nbsp;&nbsp;$$&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$&nbsp;&nbsp;/&nbsp;$$$$$$\&nbsp;&nbsp;&nbsp;$$$$$$\&nbsp;&nbsp;&nbsp;$$$$$$\&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$$$$$\&nbsp;&nbsp;&nbsp;&nbsp;$$$$$$\&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$&nbsp;|&nbsp;&nbsp;$$&nbsp;|&nbsp;$$$$$$\&nbsp;&nbsp;&nbsp;$$$$$$\&nbsp;&nbsp;&nbsp;$$$$$$\&nbsp;&nbsp;
+&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$&nbsp;&nbsp;/&nbsp;$$&nbsp;&nbsp;__$$\&nbsp;$$&nbsp;&nbsp;__$$\&nbsp;$$&nbsp;&nbsp;__$$\&nbsp;$$$$$$\\_$$&nbsp;&nbsp;_|&nbsp;&nbsp;$$&nbsp;&nbsp;__$$\&nbsp;$$$$$$\&nbsp;$$$$$$$$&nbsp;|$$&nbsp;&nbsp;__$$\&nbsp;$$&nbsp;&nbsp;__$$\&nbsp;$$&nbsp;&nbsp;__$$\&nbsp;
+&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$&nbsp;&nbsp;/&nbsp;&nbsp;$$$$$$$$&nbsp;|$$&nbsp;|&nbsp;&nbsp;\__|$$&nbsp;/&nbsp;&nbsp;$$&nbsp;|\______|&nbsp;$$&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;$$&nbsp;/&nbsp;&nbsp;$$&nbsp;|\______|$$&nbsp;&nbsp;__$$&nbsp;|$$$$$$$$&nbsp;|$$&nbsp;|&nbsp;&nbsp;\__|$$&nbsp;/&nbsp;&nbsp;$$&nbsp;|
+&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$&nbsp;&nbsp;/&nbsp;&nbsp;&nbsp;$$&nbsp;&nbsp;&nbsp;____|$$&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$&nbsp;|&nbsp;&nbsp;$$&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$&nbsp;|$$\&nbsp;$$&nbsp;|&nbsp;&nbsp;$$&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$&nbsp;|&nbsp;&nbsp;$$&nbsp;|$$&nbsp;&nbsp;&nbsp;____|$$&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$&nbsp;|&nbsp;&nbsp;$$&nbsp;|
+&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$$$$$$$\\$$$$$$$\&nbsp;$$&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\$$$$$$&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\$$$$&nbsp;&nbsp;|\$$$$$$&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$$&nbsp;|&nbsp;&nbsp;$$&nbsp;|\$$$$$$$\&nbsp;$$&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\$$$$$$&nbsp;&nbsp;|
+&nbsp;*&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\________|\_______|\__|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\______/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\____/&nbsp;&nbsp;\______/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\__|&nbsp;&nbsp;\__|&nbsp;\_______|\__|&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\______/
+<br />
+*/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+    </h1>
+    <h2>
+      Learn javascript or something.
+    </h2>
+    <hr />
+    <h3> Why you should learn Javascript </h3>
+    
+    <ul>
+      <li> It's ubiquitous. It runs in all web browsers. </li>
+      <li> It's FAST. Don't believe what you hear, Javascript is screeching these days. </li>
+      <li> It's unique. Like a strange, fun mixture of OO and Functional plus a dash of insanity. </li>
+      <li> It's flexible and forgiving. Sometimes life is hard, Javascript understands. </li>
+    </ul>
+    <h3> Why you shouldn't learn Javascript </h3>
+    <ul>
+      <li> You're scared of awesome stuff </li>
+      <li> You think the best programming languages start with .text </li>
+      <li> You hate flexibility and loathe duck typing </li>
+      <li> You think closures and anonymous functions are for maths majors </li>
+      <li> It'll freaking blow your mind </li>
+    </ul>
+    
+    <div id="share">
+      <h2>Share?</h2>
+<a href="http://twitter.com/share" class="twitter-share-button" data-url="http://js.pondr.in" data-text="Get some mad JS skillz" data-count="horizontal" data-via="taybenlor">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+      <iframe src="http://www.facebook.com/plugins/like.php?href=js.pondr.in&amp;layout=button_count&amp;show_faces=true&amp;width=450&amp;action=like&amp;colorscheme=light&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:100px; height:21px;" allowTransparency="true"></iframe>
+    </div>
+    
+    </header>
+    
+    <div id="main">
+      <h2>Okay lets do this</h2>
+      
+      <h3>Introduction</h3>
+      <p>
+        This part is for those of you who have little experience programming. If you have programmed in a C-like language before (C, C++, C#, Java) or are comfortable with programming constructs (ie know some other language very well) then click this.
+      </p>
+      <p>
+        <a href="#summary">I'm pretentious and think I am way too cool for an "Introduction" to Programming</a>
+      <p>
+      <p>
+        The most basic and simple construct in any programming language is called a <em>variable</em>. Variables store things. They are like boxes, you can put anything in them. You can also give them a name. Have a look at the code below.
+      </p>
+      <section class="lesson">
+        <div style="height: 530px">
+        <textarea>
+          
+  /*
+  * We use variables like this. 
+  */
+  var x, y, z;  //This is saying we will have some variables called x, y and z
+  x = 5; //Set x to be 5
+  y = 2; //Set y to be 2
+  z = x + y; //This just does simple maths, set z to be x plus y
+  var age = 23; //This declares the variable and sets it in the same line
+  
+  /*
+  * You can have a look at each value by using the "put" function.
+  * I'll explain this better later. So we can do this:
+  */
+  put(x);
+  put(age);
+  
+  /*
+  * Click "run" (its just down there to the bottom right) 
+  * and have a look at what comes out.
+  *
+  * Now try changing some of the values and pushing run again.
+  * (You can edit this box)
+  * 
+  * Also try outputting different values by changing the "put" lines above.
+  */
+        </textarea>
+        </div>
+      </section>
+      <p>
+        When you type <span>var</span> then a variable name you are <em>declaring</em> the variable. This is required, you must declare all variables before you use them. It's like saying "we want a variable called <em>name</em>".
+      </p>
+      <p>
+        Oh PS whenever you type <em>put(something)</em> it outputs it when you run. This isn't a standard thing, it's something I've added for this tutorial to help you understand Javascript.
+      </p>
+      
+      <h3>Comparisons and Conditionals</h3>
+      <p>
+        So setting values is fun, but what if we need to check one variable against another? We use comparisons for this. We have a few different comparison operators. We can also perform conditional operations. Lets have a look at how that works.
+      </p>
+      
+      <section class="lesson">
+        <div style="height: 330px">
+        <textarea>
+
+var a = 5;
+var b = 7;
+var c = a*b;
+
+put(a &lt; b);
+put(a == 7);
+put(c &gt; a);
+put(a &lt;= 5);
+put(a &gt;= 9);
+
+/*
+ * Try some out for yourself.
+ */
+        </textarea>
+        </div>
+      </section>
+      
+      <p>
+        Now comparisons aren't very useful by themselves. But fortunately, JavaScript has already thought of that. So we have conditionals, which use comparisons to tell if some instructions should be run.
+      </p>
+      
+          <section class="lesson">
+            <div style="height: 530px">
+            <textarea>
+
+/*
+ * There are two Brothers, Ben and Sam. 
+ * Ben is older than Sam but Sam says he is taller.
+ * Unfortunately Ben and Sam aren't very smart. They can barely count.
+ * They need a program to tell them who is taller.
+ * They have written down their heights here.
+ */
+ var ben = 182;
+ var sam = 195;
+ 
+ if(ben &gt; sam){
+   put("Ben is the tallest!");
+ }
+ else if(ben &lt; sam){
+   put("Sam is the tallest!");
+ }
+ else{
+   put("They are the same height!");
+ }
+ 
+/*
+ * Try changing Ben and Sam's heights, see what happens.
+ */
+ 
+            </textarea>
+            </div>
+          </section>
+      <p>
+        Theres a few new things here. Notice we use <span>if</span> to do a conditional. The way this works is probably as you would expect. <span>if</span> gets checked first, if the value is <em>true</em> then it is executed, if not then we move on to the <span>else if</span>. If that is not true, we keep moving through as many <span>else if</span> statements as we can until we get to an <span>else</span> or nothing. The <span>else</span> is run if nothing else is true.
+      </p>
+      
+      
+      <h3 id="summary">Summary</h3>
+      <p>
+        Welcome back pretentious people :)
+        <br>
+        What you'll find here is a summary of all the different language features in JavaScript. This might be good to use as a reference later on.
+      </p>
+      
+      <section class="lesson">
+        <div style="height: 880px">
+        <textarea>
+          
+  /*
+  * We declare variables like this. 
+  * JavaScript has Duck Typing ie:
+  * "If it looks like a duck, swims like a duck,
+  * and quacks like a duck, then it probably is a duck."
+  */
+  var x, y, z;
+  x = 5;
+  y = 2;
+  z = x + y;
+  var name = "thomas";
+  
+  /*
+  * We do if statements like this.
+  */
+  if(z == x + y){
+    put("hello " + name);
+  }
+  else if(z == x){
+    put("This is boring" + name);
+  }
+  else{
+    put("goodbye " + name);
+  }
+  
+  /*
+  * We do for loops like this.
+  */
+  for(var i = 0; i < x; i++){
+    put("Looping numero " + i);
+  }
+  
+  /*
+  * We make the functions like-a so.
+  */
+  function multiply(x, y){
+    return x*y;
+  }
+  
+  check(x*y == multiply(x,y), x + " times " + y + " = " + multiply(x,y));
+  
+  /*
+  * Pro-tip: click "Run" or press ctrl+s (or cmd+s on mac)
+  * to run the code
+  */
+  
+        </textarea>
+        </div>
+      </section>
+      <p>
+        Okay, so what was going on there?
+      </p>
+      <p>
+        First thing, you may have noticed I used a few special functions:
+        <br><em>put</em> - outputs whatever you give it as a string
+        <br><em>check</em> - tests if the first value is true and outputs the second as string
+        <br>
+        These are some special functions I've written to give you a hand working through all this.
+      </p>
+      <p>
+        PS: if you didn't notice already, you can edit and run the above code.
+      </p>
+      <h3> Data Types </h3>
+      
+      <p>
+      So you know the basics, but you've probably got a few questions. Well I have a few answers.
+      </p>
+      
+      <section class="lesson">
+        <div style="height: 700px">
+        <textarea>
+          
+/*
+ * There are only a few base data types in Javascript
+ * We have...
+ */
+ 
+ var number = 3;
+ put(number);
+ 
+ /*
+ * Numbers (You count with them)
+ */
+ 
+ var string = "Hello Mr. Jefferson";
+ put(string);
+ 
+ /*
+ * Strings (Like words and text and stuff)
+ */
+ 
+ var array = [1,2,3,"four"];
+ put(array);
+ 
+ /*
+ * Arrays (Collections of things, like a list)
+ */
+ 
+ var object = {
+   ben : 'awesome',
+   test : 'lololol'
+ };
+ put(object);
+ 
+ /*
+ * Objects (Mappings, you may know them as
+ * a hash, hashmap, hashtable or dictionary)
+ */  
+        </textarea>
+        </div>
+      </section>
+
+<p>
+   There are others, but these are the main ones you should know.
+</p>  
+
+<h3>Objects</h3>
+<p>
+  Objects are where things get fun in Javascript. You see, in Javascript everything is an object. Or at least everything behaves like an object. This can be convenient but also tricky.
+</p>
+  <section class="lesson">
+    <div style="height: 800px">
+    <textarea>
+      
+  /*
+   * If we need to, we can on the fly make a nice playful object.
+   */
+   var little_chicken = {
+     eggs: 3,
+     colour: "brilliant orange"
+   };
+ 
+   put(little_chicken.eggs, little_chicken.colour);
+ 
+   /*
+    * That was kind of cool right?
+    * Well try this on:
+    */
+   put(little_chicken['eggs']);
+ 
+   /*
+    * WHAT?!?
+    */
+    my_array = ['first', 'second'];
+    my_array.first = my_array[0];
+    my_array.second = my_array[1];
+  
+    put(my_array, my_array[0], my_array.first, my_array['first']);
+  
+    my_object = {
+      first : 'first',
+      second : 'second',
+      '0' : 'first',
+      '1' : 'second'
+    };
+  
+    put(my_object, my_object[0], my_object.first, my_object['first']);
+    
+    check(my_object == my_array, "Are they the same?"); //the answer is no
+
+    /*
+     * That was a little rude wasn't it?
+     * But kind of nice, yes?
+     * Well you ain't seen nothing kid.
+     */
+    </textarea>
+    </div>
+  </section>
+  <p>
+    I may have mentioned it before, not sure if you were paying attention. But <em>everything</em> is an object. That means you can set properties on them, throw them around, grab out their properties... do whatever you like. It's all fun :)
+  </p>
+  <p>
+    You may have also noticed that the dot and square bracket syntax is essentially the same. This is true. Most of the time we use the dot syntax, because it looks nice. However sometimes you need to use the square brackets, like when you are accessing numbered properties. It's really all up to <em>style</em>.
+  </p>
+
+  <h3>Functions</h3>
+  
+  <p> 
+    Functions in Javascript are nifty little things. You know how I mentioned before that everything is an object? Well thats true for functions as well. But theres a few other nice things we can do with functions. Kind of like the nice things we can do with objects.
+  </p>
+  <section class="lesson">
+    <div style="height: 700px">
+    <textarea>
+/*
+ * First off, lets make a function.
+ */
+ function hello(name){
+   return "Good day to you " + name;
+ }
+ put(hello);
+ put(hello("Ben"));
+ 
+ /*
+ * We can also make functions like this:
+ */
+ var goodbye = function(name){
+   return "It was nice seeing you " + name;
+ };
+ put(goodbye);
+ put(goodbye("Ben"));
+ 
+ /*
+ * Oh, and if you want to be tricky. You can do this.
+ */
+ put(function(name){
+   return "Just like that? " + name;
+ }("Ben"));
+ 
+ /*
+ * Lets try looking inside to see whats going on.
+ */ 
+ function introspection(){
+   put(arguments.length);
+   put(this);
+ }
+
+ put(introspection('hello'));
+ put(introspection.call({'oh': 'yeaaaah'},'one', 'two', 3, 4, 5));
+ 
+    </textarea>
+    </div>
+  </section>  
+<p>
+  But what does it all mean? Well it means you can create functions inline on the fly. Thats useful. It also means you can access the arguments no matter how many there are, thats also useful. Plus if you really want you can use methods on functions, which do useful things? You will see more of this.
+</p>
+
+<h3>The For Loop</h3>
+<p>
+  Ahh, the for loop. The programmers staple. When do we not loop? I don't know.
+</p>
+  <section class="lesson">
+    <div style="height: 200px">
+    <textarea>
+/*
+ * It is very common in code to need to iterate over things, like so:
+ */
+ var my_array = ["one","two","three","four"];
+ for(var i = 0; i < my_array.length; i++){
+   put(i, my_array[i]);
+ }
+    </textarea>
+    </div>
+  </section>
+  <p>
+    I have a challenge for you. I want you to write me a function which takes an Array and another function as arguments, then loops over every element in the array and calls the function with the element and the index. More explained below.
+  </p>
+    <section class="lesson">
+      <div style="height: 600px">
+      <textarea>
+function each(array, func){
+   // This is the function you will implement.
+}
+ 
+ // This code will be testing your code.
+ // Read through it if you don't understand.
+ var count = 0;
+ var my_array = ['one', 'two', 'three', 'four'];
+ each(my_array, function(el, i){
+   count++;
+   if(i == 2){
+     check(el == my_array[2], "The element is correct");
+   }
+   if(el == my_array[2]){
+     check(i == 2, "The index is correct");
+   }
+ });
+ check(count == my_array.length, "Called the correct number of times");
+      </textarea>
+      </div>
+    </section>
+  <p>
+    Good luck! Remember, poke your head back through what we've done already if you need hints.
+  </p>
+  
+  <h3> Object Oriented Design </h3>
+  <p>
+    Everything that introduces a programming language must show how it is possible to perform object oriented design in that language. So far we have seen how we can use Javascript's flexibility to create anonymous objects and anonymous functions. Now we will use this same flexibility to define an object prototype, Javascript's version of "Classes"
+  </p>
+  
+  <section class="lesson">
+    <div style="height: 600px">
+    <textarea>
+/*
+* There are a few different ways to create Object constructors in Javascript. Heres one.
+*/
+
+ var Orange = function(colour){
+   this.colour = colour || "orange";
+   this.eaten = false;
+   this.ripe = true;
+ };
+ 
+ var my_orange = new Orange("orange");
+ put(my_orange, my_orange.colour, my_orange.eaten, my_orange.ripe);
+ 
+ /*
+ * Javascript has the concept of a "Prototype"
+ * A prototype is like a Class, however it is very flexible.
+ * You'll notice this here.
+ */
+ Orange.prototype.eat = function(){
+   this.ripe = false;
+ };
+ 
+ my_orange.eat();
+ put(my_orange, my_orange.colour, my_orange.eaten, my_orange.ripe);
+ 
+ /*
+ * As you can see, we added a method to the object AFTER it was constructed
+ * by modifying its prototype. If you set one objects prototype to be another
+ * it will immediately become that other type.
+ */
+ 
+    </textarea>
+    </div>
+  </section>
+  
+  <p>
+    For your next test, I would like you to implement an Object constructor of your own.
+    I would like an Apple constructor that responds to "apple.hasWorm()" (which is true) and "apple.eat()" which should eat it.
+    It should have all the same properties as my Orange.
+  </p>
+  
+    <section class="lesson">
+      <div style="height: 600px">
+      <textarea>
+        
+var Apple = function(){
+   // This is where you will implement your things
+ };
+ //And possibly here also
+
+ // here is my testing code
+ var my_apple = new Apple("red");
+ check(!!my_apple.hasWorm, "Has the \"hasWorm\" method");
+ check(my_apple.hasWorm() == true, "Has a worm");
+ check(my_apple.colour == "red", "Colour is as created");
+ my_apple = new Apple("green");
+ check(my_apple.colour == "green", "Colour is dynamic");
+
+      </textarea>
+      </div>
+    </section>
+  
+  <p>
+    There we go, that's about as much as I have time for today. There are a heap more things I could show you, so look around the internet and check out the resources below to learn more.
+  </p>
+  
+    <h2>Some More Resources</h2>
+    <ul class="resources">
+      <li> The Mozilla JavaScript Documentation <a href="https://developer.mozilla.org/en/JavaScript/Guide">(Best Ever)</a></li>
+      <li> Prototype - The JS Library I Use <a href="http://www.prototypejs.org/">(web library)</a></li>
+      <li> JQuery - The JS Library Everyone Else Uses <a href="http://jquery.com/">(web library)</a></li>
+      <li> Paul Irish - 10 things I learned from the JQuery Source <a href="http://paulirish.com/2010/10-things-i-learned-from-the-jquery-source/">(video)</a></li>
+      <li> John Resig - Learning Advanced Javascript <a href="http://ejohn.org/apps/learn/">(interactive tutorial)</a></li>
+      <li> Joe Huckaby - Old School Color Cycling with HTML5 <a href="http://www.effectgames.com/effect/article.psp.html/joe/Old_School_Color_Cycling_with_HTML5">(canvas + js)</a></li>
+      <li> Chrome Experiments - A Bunch of Cool HTML5 + CSS3 + JS browser demos <a href="http://www.chromeexperiments.com/">(HTML5)</a></li>
+      <li> V8 JavaScript - Open Source JS Engine that can standalone <a href="http://code.google.com/p/v8/">(installable)</a></li>
+      <li> Node.js - Evented I/O for V8 = Blazing Fast JS Servers <a href="http://nodejs.org/">(installable)</a></li>
+    </ul>
+<br><!-- don't judge me I'm tired and need to quickly finish this -->
+<br>
+      <section class="lesson">
+        <div style="height: 600px">
+        <textarea>
+          
+    /*
+    * This area has been left to allow you to play around
+    */
+        </textarea>
+        </div>
+      </section>
+    </div>
+    <footer>
+
+    </footer>
+  </div>
+
+  <script src="js/prototype.s2.min.js"></script>
+
+  <script src="js/script.js?v=1"></script>
+  
+  <script>
+   var _gaq = [['_setAccount', 'UA-18180835-3'], ['_trackPageview']];
+   (function(d, t) {
+    var g = d.createElement(t),
+        s = d.getElementsByTagName(t)[0];
+    g.async = true;
+    g.src = '//www.google-analytics.com/ga.js';
+    s.parentNode.insertBefore(g, s);
+   })(document, 'script');
+  </script>
+  
+</body>
+</html>
